@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SeahawkTours.iml" filepath="$PROJECT_DIR$/SeahawkTours.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/project-1-deets-lisanti.iml" filepath="$PROJECT_DIR$/.idea/project-1-deets-lisanti.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project-1-deets-lisanti.iml" filepath="$PROJECT_DIR$/project-1-deets-lisanti.iml" />
     </modules>
   </component>
 </project>
