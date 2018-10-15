@@ -6,42 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context=".MainActivity">
 
-
-    <Button
-        android:id="@+id/csb_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="0dp"
-        android:height="120dp"
-        android:onClick="onClickDisplay"
-        android:text="@string/csb" />
-
-    <Button
-        android:id="@+id/dobo_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="0dp"
-        android:height="120dp"
-        android:onClick="onClickDisplay"
-        android:text="@string/dobo" />
-
-    <Button
-        android:id="@+id/cis_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="0dp"
-        android:height="120dp"
-        android:onClick="onClickDisplay"
-        android:text="@string/cis" />
-
     <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/main_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:prompt="@string/spinner_prompt"
+        android:spinnerMode="dialog"
+        android:entries="@array/building_names" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:height="60dp"
+        android:onClick="onClickDisplay"
+        android:text="@string/search_button" />
 
 </LinearLayout>
