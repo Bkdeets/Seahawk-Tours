@@ -24,6 +24,23 @@
             android:paddingTop="30dp"
             android:textSize="28sp" />
 
+        <ImageView
+            android:id="@+id/building_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="@string/generic_caption"
+            />
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:paddingBottom="10dp"
+            android:id="@+id/building_caption"
+            />
+
         <TextView
             android:id="@+id/building_info"
             android:layout_width="match_parent"
@@ -32,11 +49,7 @@
             android:padding="30dp"
             android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/building_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="20dp" />
+
 
 
     </LinearLayout>

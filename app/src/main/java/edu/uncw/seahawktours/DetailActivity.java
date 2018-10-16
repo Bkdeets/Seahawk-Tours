@@ -9,6 +9,7 @@ import android.widget.TextView;
 public class DetailActivity extends Activity {
     String BuildingName;
     ImageView buildingPhoto;
+    String buildingCaption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +34,19 @@ public class DetailActivity extends Activity {
             String description = "Dobo Hall Image";
             buildingPhoto.setImageResource(image);
             buildingPhoto.setContentDescription(description);
+            TextView caption = findViewById(R.id.building_caption);
+            caption.setText(R.string.dobo_caption);
         }
 
         if (BuildingName.equals(getResources().getString(R.string.cis))) {
             TextView info = findViewById(R.id.building_info);
             info.setText(R.string.cis_info);
             int image = R.drawable.cis;
-            String description = "CIS Building Image";
+            String description = "CIS Image";
             buildingPhoto.setImageResource(image);
             buildingPhoto.setContentDescription(description);
+            TextView caption = findViewById(R.id.building_caption);
+            caption.setText(R.string.cis_caption);
         }
 
         if (BuildingName.equals(getResources().getString(R.string.depaolo))) {
@@ -51,6 +56,8 @@ public class DetailActivity extends Activity {
             String description = "Depaolo Hall Image";
             buildingPhoto.setImageResource(image);
             buildingPhoto.setContentDescription(description);
+            TextView caption = findViewById(R.id.building_caption);
+            caption.setText(R.string.depalo_caption);
         }
     }
 }

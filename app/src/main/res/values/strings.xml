@@ -35,4 +35,10 @@
     her commitment to put students first while accomplishing the ambitious strategic goals of her
     administration.</string>
 
+    <string name="dobo_caption">Entrance to Dobo Hall</string>
+    <string name="cis_caption">Entrance to CIS building</string>
+    <string name="depalo_caption">Entrance to DePaolo hall</string>
+
+    <string name="generic_caption">Building image</string>
+
 </resources>
