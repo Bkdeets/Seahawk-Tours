@@ -9,7 +9,6 @@ import android.widget.TextView;
 public class DetailActivity extends Activity {
     String BuildingName;
     ImageView buildingPhoto;
-    String buildingCaption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +26,8 @@ public class DetailActivity extends Activity {
         //Fill building info corresponding to title
         //Each if statement assigns correct strings and image src depending on selection
 
+
+        //Put this if block in a function
         if (BuildingName.equals(getResources().getString(R.string.dobo))) {
             TextView info = findViewById(R.id.building_info);
             info.setText(R.string.dobo_info);
