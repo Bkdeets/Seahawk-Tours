@@ -13,12 +13,14 @@ public class DetailController {
 
     public String mapBuildingName(String buildingName){
 
-        int buildingIndex = R.string.
+        String buildingMap = "Bloop";
 
         return buildingMap;
     }
 
     public ArrayList<Object> getBuildingValues(String buildingMap){
+
+        ArrayList<Object> buildingValues = new ArrayList<>();
 
         return buildingValues;
     }
