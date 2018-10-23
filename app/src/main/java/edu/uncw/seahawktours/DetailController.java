@@ -13,6 +13,7 @@ public class DetailController {
 
     public String mapBuildingName(String buildingName){
 
+        int buildingIndex = R.string.
 
         return buildingMap;
     }
