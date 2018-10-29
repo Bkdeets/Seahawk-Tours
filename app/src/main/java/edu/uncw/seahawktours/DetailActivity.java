@@ -6,22 +6,65 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 public class DetailActivity extends Activity {
-    String BuildingName;
-    ImageView buildingPhoto;
+    private ImageView buildingPhoto;
+    private TextView title;
+    private TextView info;
+    private HashMap<String, String> buildingMappings;
+
+
+    public static final String EXTRA_BUILDINGID = "buildingId";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
 
-        //Creates off saved state?
+        //Get the building from the intent
+        int buildingId = (Integer)getIntent().getExtras().get(EXTRA_BUILDINGID);
+        Building building = Building.buildings[buildingId];
+
+        TextView name = (TextView)findViewById(R.id.building_name);
+        name.setText(building.getName());
+
+        TextView description = (TextView)findViewById(R.id.building_info);
+        description.setText(building.getInfo());
+
+        ImageView photo = (ImageView)findViewById(R.id.building_image);
+        photo.setImageResource(building.getImageId());
+        photo.setContentDescription(building.getName());
+    }
+
+/*    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         Intent intent = getIntent();
 
+
+        makeBuildingHash();
+
+        //Creates off saved state?
+
+
         buildingPhoto = findViewById(R.id.building_image);
-        BuildingName = intent.getExtras().getString("building_name"); //Pull button text
-        TextView title = findViewById(R.id.building_name); //Define text view from xml
-        title.setText(BuildingName); //Set selection text to textview
+        title = findViewById(R.id.building_name);
+        info = findViewById(R.id.building_info);
+
+        String buildingName = intent.getExtras().getString("building_name"); //Pull button text
+
+        title.setText(buildingName); //Set selection text to textview
+
+        Building buildingToDisplay = new Building();
+        buildingToDisplay.setName(BuildingName);
+
+        findViewById(R.id.building_info);
+
+
+        buildingToDisplay.setInfo();
 
         //Fill building info corresponding to title
         //Each if statement assigns correct strings and image src depending on selection
@@ -60,5 +103,26 @@ public class DetailActivity extends Activity {
             TextView caption = findViewById(R.id.building_caption);
             caption.setText(R.string.depalo_caption);
         }
+    }*/
+
+
+
+
+
+
+    private void makeBuildingHash(){
+        buildingMappings.put("Dobo Hall", "dobo");
+        buildingMappings.put("DePaolo Hall", "depaolo");
+        buildingMappings.put("Computer Information Systems Building", "cis");
     }
+
+    /*private Building mapBuilding(String displayName) {
+
+        Building building = new Building();
+
+        building.setName(displayName);
+        String
+
+        return building;
+    }*/
 }
