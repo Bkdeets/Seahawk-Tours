@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 
 public class Building {
@@ -11,13 +12,15 @@ public class Building {
     private String name;
     private String info;
     private int imageId;
+    private String caption;
 
-    public Building(String name, String info, int imageId){
-        this.name = name;
-        this.info = info;
-        this.imageId = imageId;
-    };
 
+    public Building() {
+    }
+
+    public String getCaption() { return caption; }
+
+    public void setCaption(String caption) { this.caption = caption; }
 
     public String getName() {
         return name;
@@ -44,7 +47,7 @@ public class Building {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.name;
     }
 }
