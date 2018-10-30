@@ -1,29 +1,22 @@
 package edu.uncw.seahawktours;
 
-import android.app.Activity;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.widget.ArrayAdapter;
-
-import java.util.ArrayList;
-
 public class Building {
 
-    private String name;
-    private String info;
+    private int nameId;
+    private int infoId;
     private int imageId;
-    private String caption;
+    private int captionId;
 
 
     public Building() {
     }
 
-    public String getCaption() { return caption; }
+    public int getCaptionId() { return captionId; }
 
-    public void setCaption(String caption) { this.caption = caption; }
+    public void setCaptionId(int captionId) { this.captionId = captionId; }
 
-    public String getName() {
-        return name;
+    public int getNameId() {
+        return nameId;
     }
 
     public int getImageId() {
@@ -34,20 +27,17 @@ public class Building {
         this.imageId = imageId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameId(int nameId) {
+        this.nameId = nameId;
     }
 
-    public String getInfo() {
-        return info;
+    public int getInfoId() {
+        return infoId;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setInfoId(int infoId) {
+        this.infoId = infoId;
     }
 
-    @Override
-    public String toString() {
-        return this.name;
-    }
+
 }
