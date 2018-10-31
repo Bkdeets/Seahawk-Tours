@@ -39,10 +39,10 @@ public class DetailActivity extends Activity {
 
 
         //Set view attributes based on building
-        buildingName.setText(ce.buildings.get(buttonText).getName());
-        buildingInfo.setText(ce.buildings.get(buttonText).getInfo());
+        buildingName.setText(ce.buildings.get(buttonText).getNameId());
+        buildingInfo.setText(ce.buildings.get(buttonText).getInfoId());
         buildingPhoto.setImageResource(ce.buildings.get(buttonText).getImageId());
-        buildingCaption.setText(ce.buildings.get(buttonText).getCaption());
+        buildingCaption.setText(ce.buildings.get(buttonText).getCaptionId());
 
 
     }
