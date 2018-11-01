@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.support.v7.app.AppCompatActivity;
 import java.util.HashMap;
 
 
-public class DetailActivity extends Activity {
+public class DetailActivity extends AppCompatActivity {
     private ImageView buildingPhoto;
     private TextView buildingName;
     private TextView buildingInfo;

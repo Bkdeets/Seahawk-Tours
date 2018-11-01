@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Spinner;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private Spinner mainSpinner;
 
@@ -15,6 +17,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainSpinner = findViewById(R.id.main_spinner);
+
+        //TOOL BAR CREATION NOT WORKING?
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
     }
 
     public void onClickDisplay(View view) {

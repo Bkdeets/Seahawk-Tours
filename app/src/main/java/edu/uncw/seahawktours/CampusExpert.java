@@ -10,9 +10,11 @@ public class CampusExpert {
 
     public CampusExpert() {
         buildings = new HashMap<>();
+        buildings.put("Alderman Hall",build("Alderman Hall"));
         buildings.put("Dobo Hall",build("Dobo Hall"));
         buildings.put("DePaolo Hall",build("DePaolo Hall"));
         buildings.put("Computer Information Systems Building",build("Computer Information Systems Building"));
+        buildings.put("James Hall",build("James Hall"));
     }
 
     public Building build(String buildingName) {
@@ -42,6 +44,21 @@ public class CampusExpert {
                 newConstruction.setImageId(R.drawable.cis);
                 newConstruction.setCaptionId(R.string.cis_caption);
                 return newConstruction;
+
+            case "Alderman Hall" :
+                newConstruction.setNameId(R.string.alderman_name);
+                newConstruction.setInfoId(R.string.alderman_info);
+                newConstruction.setImageId(R.drawable.alderman);
+                newConstruction.setCaptionId(R.string.alderman_caption);
+                return newConstruction;
+
+            case "James Hall" :
+                newConstruction.setNameId(R.string.james_name);
+                newConstruction.setInfoId(R.string.james_info);
+                newConstruction.setImageId(R.drawable.james);
+                newConstruction.setCaptionId(R.string.alderman_caption);
+                return newConstruction;
+
 
             default:
                 return newConstruction;

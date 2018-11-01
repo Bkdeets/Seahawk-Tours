@@ -16,6 +16,10 @@
     tools:context=".DetailActivity"
     >
 
+    <include
+        layout="@layout/toolbar_main"
+        android:id="@id/toolbar" />
+
     <TextView
         android:id="@+id/building_name"
         android:layout_width="match_parent"
