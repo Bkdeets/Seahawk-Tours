@@ -18,9 +18,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mainSpinner = findViewById(R.id.main_spinner);
 
-        //TOOL BAR CREATION NOT WORKING?
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        //Set toolbar
+       Toolbar toolbar = findViewById(R.id.toolbar);
+       setSupportActionBar(toolbar);
     }
 
     public void onClickDisplay(View view) {
