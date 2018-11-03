@@ -27,7 +27,8 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         //Set toolbar
-
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         //Get all views
         buildingPhoto = findViewById(R.id.building_image);
