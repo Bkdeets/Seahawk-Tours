@@ -3,6 +3,12 @@
     <string name="spinner_prompt">Select a Building... </string>
     <string name="explore">Explore </string>
     <string name="about">About</string>
+    <string name="go_back">Previous</string>
+    <string name="authors">Created by Britton Deets and Mark Lisanti.
+    UNCW building information and images courtesy of the UNCW University Archives</string>
+
+
+    <string name="action_share">Share</string>
 
     <string-array name="building_names">
         <item name="alderman">Alderman Hall</item>
