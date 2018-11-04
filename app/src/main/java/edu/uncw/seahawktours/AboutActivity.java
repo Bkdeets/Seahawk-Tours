@@ -18,14 +18,15 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_detail);
         setContentView(R.layout.about_main);
-
-
+        
         //Set toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        String html = "Created by Britton Deets and Mark Lisanti. UNCW building information and images courtesy of the UNCW <a href=\"http://google.com\">University Archives</a>";
+        String html = "Created by Britton Deets and Mark Lisanti. \n" +
+                " UNCW building information and" +
+                " images courtesy of the UNCW <a href=\" https://library.uncw.edu/archives_special/archives\">University Archives</a>";
         TextView t2 = (TextView) findViewById(R.id.authors);
         t2.setText((Html.fromHtml(html)));
         t2.setMovementMethod(LinkMovementMethod.getInstance());
