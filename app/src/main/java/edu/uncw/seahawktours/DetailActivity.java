@@ -25,7 +25,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView buildingName;
     private TextView buildingInfo;
     private TextView buildingCaption;
-    private Button linkButton;
+    private TextView linkButton;
     private String buttonText;
     private ShareActionProvider shareActionProvider;
 
@@ -54,7 +54,6 @@ public class DetailActivity extends AppCompatActivity {
 
         //Hire a building builder
         CampusExpert ce = new CampusExpert();
-
 
         //Set view attributes based on building
         buildingName.setText(ce.buildings.get(buttonText).getNameId());

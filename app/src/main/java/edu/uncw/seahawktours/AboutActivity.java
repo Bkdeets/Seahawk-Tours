@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ShareActionProvider;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +17,8 @@ import android.widget.Spinner;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -30,7 +34,10 @@ public class AboutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+        String html = "Created by Britton Deets and Mark Lisanti. UNCW building information and images courtesy of the UNCW <a href=\"http://google.com\">University Archives</a>";
+        TextView t2 = (TextView) findViewById(R.id.authors);
+        t2.setText((Html.fromHtml(html)));
+        t2.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override
@@ -39,8 +46,6 @@ public class AboutActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main_noshare, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

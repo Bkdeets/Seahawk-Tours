@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
+    //Set up button for about intent
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.go_about:

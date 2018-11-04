@@ -6,7 +6,6 @@ public class CampusExpert {
 
     public HashMap<String,Building> buildings;
 
-
     public CampusExpert() {
         buildings = new HashMap<>();
         buildings.put("Alderman Hall",build("Alderman Hall"));
