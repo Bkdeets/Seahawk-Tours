@@ -1,6 +1,7 @@
 package edu.uncw.seahawktours;
 
 import android.app.Activity;
+import android.widget.AdapterView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -8,33 +9,57 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.widget.ShareActionProvider;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ArrayAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Spinner mainSpinner;
+    private ListView mainList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainSpinner = findViewById(R.id.main_spinner);
 
         //Set toolbar
-       Toolbar toolbar = findViewById(R.id.toolbar);
-       setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //Array adapter
+        ArrayAdapter<Building> listAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1, Building.buildings);
+        mainList = findViewById(R.id.main_list);
+        mainList.setAdapter(listAdapter);
+
+        AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+            public void onItemClick(
+                    AdapterView<?> listView,
+                    View itemView,
+                    int position,
+                    long id) {
+
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra(DetailActivity.EXTRA_BUILDINGID, (int) id);
+                    startActivity(intent);
+
+            }
+        };
+
+        mainList.setOnItemClickListener(itemClickListener);
 
     }
 
-    public void onClickDisplay(View view) {
+
+    /*public void onClickDisplay(View view) {
         //Launch the DisplayActivity with building data
-        String spinnerText = mainSpinner.getSelectedItem().toString(); //get text from button pushed
+        String spinnerText = mainList.getSelectedItem().toString(); //get text from button pushed
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra("building_name", spinnerText);  //pass button text to new intent
         startActivity(intent);
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

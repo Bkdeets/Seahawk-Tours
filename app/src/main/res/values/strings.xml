@@ -1,14 +1,12 @@
 <resources>
     <string name="app_name">Seahawk Tours</string>
-    <string name="spinner_prompt">Select a Building... </string>
     <string name="explore">Explore </string>
     <string name="about">About</string>
     <string name="go_back">Previous</string>
-    <string name="authors"></string>
+    <string name="authors">Created by Britton Deets and Mark Lisanti.
+    UNCW building information and images courtesy of the UNCW University Archives</string>
 
-    <string name="link_button"><u>Click here</u> for more info</string>
-
-
+    <string name="link_button">Click here for more info</string>
     <string name="action_share">Share</string>
 
     <string-array name="building_names">
@@ -19,12 +17,11 @@
         <item name="james">James Hall</item>
     </string-array>
 
-    <string name="search_button">Learn More</string>
     <string name="generic_caption">Building image</string>
-
     <string name="building_info">Building Information</string>
 
 
+    <!--Dobo stuff-->
     <string name="dobo_name">Dobo Hall</string>
     <string name="dobo_caption">Entrance to Dobo Hall</string>
     <string name="dobo_info">\t \t Opened for use in 1996, the New Science Building contained classrooms
@@ -33,6 +30,7 @@
                         Marine Biology and the Department of Chemistry.</string>
     <string name="dobo_link">https://library.uncw.edu/web/collections/archives/bnl/25.html</string>
 
+    <!--DePaolo stuff-->
     <string name="depaolo_name">DePaolo Hall</string>
     <string name="depaolo_caption">Entrance to DePaolo Hall</string>
     <string name="depaolo_info">\t \t The DePaolo Hall was built in 1970 and was the original cafeteria on campus.
@@ -46,7 +44,7 @@
                         administration.</string>
     <string name="depaolo_link">https://library.uncw.edu/web/collections/archives/bnl/6.html</string>
 
-
+    <!--CIS stuff-->
     <string name="cis_name">Computer Information Systems Building</string>
     <string name="cis_caption">Entrance to the Computer Information Systems Building</string>
     <string name="cis_info">\t \t The Computer Information Systems (CIS) building was constructed to house
@@ -58,7 +56,7 @@
                         North Carolina State Bond campaign of 2000.</string>
     <string name="cis_link">https://library.uncw.edu/web/collections/archives/bnl/cis.html</string>
 
-
+    <!--Alderman stuff-->
     <string name="alderman_name">Alderman Hall</string>
     <string name="alderman_caption">Entrance to the Alderman Hall</string>
     <string name="alderman_info">\t \t Alderman Hall was one of the three original buildings erected
@@ -68,6 +66,7 @@
                         the 1968 opening of Randall Library.</string>
     <string name="alderman_link">https://library.uncw.edu/web/collections/archives/bnl/7.html</string>
 
+    <!--James stuff-->
     <string name="james_name">James Hall</string>
     <string name="james_caption">Entrance to the James Hall</string>
     <string name="james_info">\t \t One of the three original campus buildings erected on campus, James Hall opened as the Student
@@ -75,7 +74,5 @@
                         and student lounge commonly referred to as "The Pub." Currently, James Hall houses Admissions, Registrar, Cashier,
                         Loan Center and Graduate School Offices.</string>
     <string name="james_link">https://library.uncw.edu/web/collections/archives/bnl/9.html</string>
-
-
 
 </resources>

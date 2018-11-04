@@ -25,9 +25,10 @@ public class DetailActivity extends AppCompatActivity {
     private TextView buildingName;
     private TextView buildingInfo;
     private TextView buildingCaption;
-    private TextView linkButton;
-    private String buttonText;
+    private Button linkButton;
+    private Building contextBuilding;
     private ShareActionProvider shareActionProvider;
+    public static final String EXTRA_BUILDINGID = "buildingId";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         Intent intent = getIntent();
+
+        int buildingId = (Integer) intent.getExtras().get(EXTRA_BUILDINGID);
+        contextBuilding = Building.buildings[buildingId];
 
         //Set toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -49,17 +53,12 @@ public class DetailActivity extends AppCompatActivity {
         buildingCaption = findViewById(R.id.building_caption);
         linkButton = findViewById(R.id.linkButton);
 
-        //Pull button text
-        buttonText = intent.getExtras().getString("building_name");
-
-        //Hire a building builder
-        CampusExpert ce = new CampusExpert();
-
         //Set view attributes based on building
-        buildingName.setText(ce.buildings.get(buttonText).getNameId());
-        buildingInfo.setText(ce.buildings.get(buttonText).getInfoId());
-        buildingPhoto.setImageResource(ce.buildings.get(buttonText).getImageId());
-        buildingCaption.setText(ce.buildings.get(buttonText).getCaptionId());
+        buildingName.setText(contextBuilding.getNameId());
+        buildingInfo.setText(contextBuilding.getInfoId());
+        buildingPhoto.setImageResource(contextBuilding.getImageId());
+        buildingCaption.setText(contextBuilding.getCaptionId());
+
 
     }
 
@@ -96,9 +95,8 @@ public class DetailActivity extends AppCompatActivity {
 
 
     public void onClickGoToURL(View view){
-        CampusExpert ce = new CampusExpert();
         Intent browserIntent = new Intent(Intent.ACTION_VIEW);
-        String url = getString(ce.buildings.get(buttonText).getLink());
+        String url = getString(contextBuilding.getLink());
         browserIntent.setData(Uri.parse(url));
         startActivity(browserIntent);
     }
