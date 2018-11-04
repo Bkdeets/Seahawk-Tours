@@ -6,10 +6,14 @@ public class Building {
     private int infoId;
     private int imageId;
     private int captionId;
+    private int link;
 
 
-    public Building() {
-    }
+    public Building() { }
+
+    public int getLink() { return link; }
+
+    public void setLink(int link) { this.link = link; }
 
     public int getCaptionId() { return captionId; }
 

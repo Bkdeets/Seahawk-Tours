@@ -3,6 +3,7 @@ package edu.uncw.seahawktours;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -11,8 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
 import android.support.v7.app.AppCompatActivity;
 import java.util.HashMap;
 
@@ -22,6 +25,8 @@ public class DetailActivity extends AppCompatActivity {
     private TextView buildingName;
     private TextView buildingInfo;
     private TextView buildingCaption;
+    private Button linkButton;
+    private String buttonText;
     private ShareActionProvider shareActionProvider;
 
     @Override
@@ -42,9 +47,10 @@ public class DetailActivity extends AppCompatActivity {
         buildingName = findViewById(R.id.building_name);
         buildingInfo = findViewById(R.id.building_info);
         buildingCaption = findViewById(R.id.building_caption);
+        linkButton = findViewById(R.id.linkButton);
 
         //Pull button text
-        String buttonText = intent.getExtras().getString("building_name");
+        buttonText = intent.getExtras().getString("building_name");
 
         //Hire a building builder
         CampusExpert ce = new CampusExpert();
@@ -55,7 +61,6 @@ public class DetailActivity extends AppCompatActivity {
         buildingInfo.setText(ce.buildings.get(buttonText).getInfoId());
         buildingPhoto.setImageResource(ce.buildings.get(buttonText).getImageId());
         buildingCaption.setText(ce.buildings.get(buttonText).getCaptionId());
-
 
     }
 
@@ -88,6 +93,15 @@ public class DetailActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    public void onClickGoToURL(View view){
+        CampusExpert ce = new CampusExpert();
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+        String url = getString(ce.buildings.get(buttonText).getLink());
+        browserIntent.setData(Uri.parse(url));
+        startActivity(browserIntent);
     }
 
 }

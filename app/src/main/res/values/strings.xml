@@ -7,6 +7,8 @@
     <string name="authors">Created by Britton Deets and Mark Lisanti.
     UNCW building information and images courtesy of the UNCW University Archives</string>
 
+    <string name="link_button">Click here for more info</string>
+
 
     <string name="action_share">Share</string>
 
@@ -30,6 +32,7 @@
                         laboratories and faculty offices for the Chemistry and Biology Departments. Known as Dobo Hall
                         its 1999 dedication to the Dobo brothers, it is currently used by the Department of Biology and
                         Marine Biology and the Department of Chemistry.</string>
+    <string name="dobo_link">https://library.uncw.edu/web/collections/archives/bnl/25.html</string>
 
     <string name="depaolo_name">DePaolo Hall</string>
     <string name="depaolo_caption">Entrance to DePaolo Hall</string>
@@ -42,6 +45,8 @@
                         after eight years as Chancellor. The naming recognizes Dr. DePaolos leadership at UNCW and
                         her commitment to put students first while accomplishing the ambitious strategic goals of her
                         administration.</string>
+    <string name="depaolo_link">https://library.uncw.edu/web/collections/archives/bnl/6.html</string>
+
 
     <string name="cis_name">Computer Information Systems Building</string>
     <string name="cis_caption">Entrance to the Computer Information Systems Building</string>
@@ -52,6 +57,8 @@
                         the new school semester. Work on the facility began on July 29, 2004 with the groundbreaking, and
                         competed in December of 2006. The building cost approximately $12.8 million and was funded by the
                         North Carolina State Bond campaign of 2000.</string>
+    <string name="cis_link">https://library.uncw.edu/web/collections/archives/bnl/cis.html</string>
+
 
     <string name="alderman_name">Alderman Hall</string>
     <string name="alderman_caption">Entrance to the Alderman Hall</string>
@@ -60,6 +67,7 @@
                         of 1970. The original function for this building, as administrative offices, is much the same as its
                         current use. The first library for Wilmington College was located on the lower floor of Alderman Hall until
                         the 1968 opening of Randall Library.</string>
+    <string name="alderman_link">https://library.uncw.edu/web/collections/archives/bnl/7.html</string>
 
     <string name="james_name">James Hall</string>
     <string name="james_caption">Entrance to the James Hall</string>
@@ -67,6 +75,8 @@
                         Services Building in 1961. It was dedicated and renamed in 1970. Early features included a bookstore, cafeteria
                         and student lounge commonly referred to as "The Pub." Currently, James Hall houses Admissions, Registrar, Cashier,
                         Loan Center and Graduate School Offices.</string>
+    <string name="james_link">https://library.uncw.edu/web/collections/archives/bnl/9.html</string>
+
 
 
 </resources>
