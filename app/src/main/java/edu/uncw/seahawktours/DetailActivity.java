@@ -25,7 +25,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView buildingName;
     private TextView buildingInfo;
     private TextView buildingCaption;
-    private Button linkButton;
+    private TextView linkButton;
     private Building contextBuilding;
     private ShareActionProvider shareActionProvider;
     public static final String EXTRA_BUILDINGID = "buildingId";
