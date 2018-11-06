@@ -11,9 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BuildingListFragment.Listener {
 
-    private ListView mainList;
+    //private ListView mainList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        /*
         //Array adapter
         ArrayAdapter<Building> listAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, Building.buildings);
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mainList.setOnItemClickListener(itemClickListener);
-
+        */
     }
 
 
@@ -77,5 +79,12 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void itemClicked(long id) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(DetailActivity.EXTRA_BUILDINGID, (int)id);
+        startActivity(intent);
     }
 }
