@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<fragment
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:name="edu.uncw.seahawktours.DetailActivityFragment"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_main" />
+
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:name="edu.uncw.seahawktours.DetailActivityFragment"
+        android:id="@+id/activity_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
+
 

@@ -23,7 +23,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView linkButton;
     private Building contextBuilding;
     private ShareActionProvider shareActionProvider;
-    public static final String EXTRA_BUILDINGID = "buildingId";
+    public static final String EXTRA_BUILDINGID = "id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,10 @@ public class DetailActivity extends AppCompatActivity {
 
         int buildingId = (Integer) intent.getExtras().get(EXTRA_BUILDINGID);
         contextBuilding = Building.buildings[buildingId];
+
+        //Fragment
+        DetailActivityFragment frag = (DetailActivityFragment)getSupportFragmentManager().findFragmentById(R.id.activity_fragment);
+        frag.setBuilding(buildingId);
 
         //Set toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);

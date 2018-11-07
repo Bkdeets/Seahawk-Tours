@@ -2,6 +2,8 @@ package edu.uncw.seahawktours;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.app.Activity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,7 +15,6 @@ import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity implements BuildingListFragment.Listener {
 
-    //private ListView mainList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +84,20 @@ public class MainActivity extends AppCompatActivity implements BuildingListFragm
 
     @Override
     public void itemClicked(long id) {
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(DetailActivity.EXTRA_BUILDINGID, (int)id);
-        startActivity(intent);
+        View fragmentContainer = findViewById(R.id.detail_container);
+        if (fragmentContainer != null) {
+
+            DetailActivityFragment details = new DetailActivityFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            details.setBuilding(id);
+            ft.replace(R.id.detail_container, details);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.addToBackStack(null);
+            ft.commit();
+        } else {
+            Intent intent = new Intent(this, DetailActivity.class);
+            intent.putExtra(DetailActivity.EXTRA_BUILDINGID, (int)id);
+            startActivity(intent);
+        }
     }
 }
