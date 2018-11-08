@@ -36,8 +36,9 @@ public class DetailActivity extends AppCompatActivity {
         contextBuilding = Building.buildings[buildingId];
 
         //Fragment
-        DetailActivityFragment frag = (DetailActivityFragment)getSupportFragmentManager().findFragmentById(R.id.activity_fragment);
-        frag.setBuilding(buildingId);
+        DetailActivityFragment frag = (DetailActivityFragment)
+                getSupportFragmentManager().findFragmentById(R.id.activity_fragment);
+        frag.setBuilding(3);
 
         //Set toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
