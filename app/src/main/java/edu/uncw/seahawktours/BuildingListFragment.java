@@ -5,15 +5,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.support.v7.widget.GridLayoutManager;
+import android.content.Intent;
 
-
-public class BuildingListFragment extends ListFragment {
+public class BuildingListFragment extends Fragment {
 
     //Add Listener
     static interface Listener {
@@ -25,25 +27,33 @@ public class BuildingListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //Array adapter
-        ArrayAdapter<Building> listAdapter = new ArrayAdapter<>(
-                inflater.getContext(), android.R.layout.simple_list_item_1, Building.buildings);
-        setListAdapter(listAdapter);
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
+        RecyclerView buildingRecycler = (RecyclerView)inflater.inflate(
+                R.layout.fragment_buildings, container, false);
 
-    //Called when fragment is attached
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.listener = (Listener)context;
-    }
-
-    //Tell listener when item is clicked
-    @Override
-    public void onListItemClick(ListView listView, View itemView, int position, long id) {
-        if (listener != null) {
-            listener.itemClicked(id);
+        String[] buildingNames = new String[Building.buildings.length];
+        for (int i = 0; i < buildingNames.length; i++) {
+            buildingNames[i] = String.valueOf(Building.buildings[i].getNameId());
         }
+
+        int[] buildingImages = new int[Building.buildings.length];
+        for (int i = 0; i < buildingImages.length; i++) {
+            buildingImages[i] = Building.buildings[i].getImageId();
+        }
+
+        CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(buildingNames, buildingImages);
+        buildingRecycler.setAdapter(adapter);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        buildingRecycler.setLayoutManager(layoutManager);
+
+        adapter.setListener(new CaptionedImagesAdapter.Listener() {
+            public void onClick(int position) {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_BUILDINGID, position);
+                getActivity().startActivity(intent);
+            }
+        });
+
+        return buildingRecycler;
     }
+
 }

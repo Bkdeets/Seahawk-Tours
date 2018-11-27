@@ -38,7 +38,7 @@ public class DetailActivity extends AppCompatActivity {
         //Fragment
         DetailActivityFragment frag = (DetailActivityFragment)
                 getSupportFragmentManager().findFragmentById(R.id.activity_fragment);
-        frag.setBuilding(3);
+        frag.setBuilding(buildingId);
 
         //Set toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
