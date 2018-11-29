@@ -30,9 +30,9 @@ public class BuildingListFragment extends Fragment {
         RecyclerView buildingRecycler = (RecyclerView)inflater.inflate(
                 R.layout.fragment_buildings, container, false);
 
-        String[] buildingNames = new String[Building.buildings.length];
+        int[] buildingNames = new int[Building.buildings.length];
         for (int i = 0; i < buildingNames.length; i++) {
-            buildingNames[i] = String.valueOf(Building.buildings[i].getNameId());
+            buildingNames[i] = Building.buildings[i].getNameId();
         }
 
         int[] buildingImages = new int[Building.buildings.length];

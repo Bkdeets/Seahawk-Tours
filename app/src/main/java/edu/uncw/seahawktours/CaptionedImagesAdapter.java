@@ -14,7 +14,7 @@ import android.support.v4.content.ContextCompat;
 
 class CaptionedImagesAdapter extends
         RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder>{
-    private String[] captions;
+    private int[] captions;
     private int[] imageIds;
 
     private Listener listener;
@@ -29,7 +29,7 @@ class CaptionedImagesAdapter extends
             cardView = v;
         }
     }
-    public CaptionedImagesAdapter(String[] captions, int[] imageIds){
+    public CaptionedImagesAdapter(int[] captions, int[] imageIds){
         this.captions = captions;
         this.imageIds = imageIds;
     }
@@ -58,7 +58,7 @@ class CaptionedImagesAdapter extends
         Drawable drawable =
                 ContextCompat.getDrawable(cardView.getContext(), imageIds[position]);
         imageView.setImageDrawable(drawable);
-        imageView.setContentDescription(captions[position]);
+        //imageView.setContentDescription(captions[position]);
         TextView textView = (TextView)cardView.findViewById(R.id.info_text);
         textView.setText(captions[position]);
         cardView.setOnClickListener(new View.OnClickListener() {
