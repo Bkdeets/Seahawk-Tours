@@ -42,7 +42,7 @@ public class BuildingListFragment extends Fragment {
 
         CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(buildingNames, buildingImages);
         buildingRecycler.setAdapter(adapter);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         buildingRecycler.setLayoutManager(layoutManager);
 
         adapter.setListener(new CaptionedImagesAdapter.Listener() {
