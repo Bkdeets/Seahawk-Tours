@@ -1,5 +1,6 @@
 package edu.uncw.seahawktours;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.Math;
+import java.util.List;
+
 
 public class DetailActivity extends AppCompatActivity {
     private ImageView buildingPhoto;
@@ -24,6 +28,7 @@ public class DetailActivity extends AppCompatActivity {
     private Building contextBuilding;
     private ShareActionProvider shareActionProvider;
     public static final String EXTRA_BUILDINGID = "id";
+    public static final String EXTRA_BUILDING_DATA = "buildings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +37,8 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         Intent intent = getIntent();
 
-        int buildingId = (Integer) intent.getExtras().get(EXTRA_BUILDINGID);
-        contextBuilding = Building.buildings[buildingId];
+        long buildingId = intent.getLongExtra(EXTRA_BUILDINGID,0);
+        contextBuilding = MainActivity.buildings.get((int)buildingId);
 
         //Fragment
         DetailActivityFragment frag = (DetailActivityFragment)

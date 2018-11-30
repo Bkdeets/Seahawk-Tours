@@ -12,6 +12,7 @@ public class DetailActivityFragment extends Fragment {
 
     private long buildingId;
 
+
     public DetailActivityFragment() {
         // Required empty public constructor
     }
@@ -32,7 +33,7 @@ public class DetailActivityFragment extends Fragment {
         }
     }
 
-    public void setBuilding(long id) {
+    public void setBuilding(Long id) {
         this.buildingId = id;
     }
 
@@ -42,11 +43,12 @@ public class DetailActivityFragment extends Fragment {
         View view = getView();
         if (view != null) {
             //Build the info for the fragment
-            Building building = Building.buildings[(int) buildingId];
             TextView title = (TextView) view.findViewById(R.id.building_name);
             TextView caption = (TextView) view.findViewById(R.id.building_caption);
             TextView description = (TextView) view.findViewById(R.id.building_info);
             ImageView image = (ImageView) view.findViewById(R.id.building_image);
+
+            Building building = MainActivity.buildings.get((int)buildingId);
             title.setText(building.getNameId());
             caption.setText(building.getCaptionId());
             description.setText(building.getInfoId());

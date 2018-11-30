@@ -14,8 +14,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.widget.GridLayoutManager;
 import android.content.Intent;
+import java.util.List;
 
 public class BuildingListFragment extends Fragment {
+
 
     //Add Listener
     static interface Listener {
@@ -30,14 +32,14 @@ public class BuildingListFragment extends Fragment {
         RecyclerView buildingRecycler = (RecyclerView)inflater.inflate(
                 R.layout.fragment_buildings, container, false);
 
-        int[] buildingNames = new int[Building.buildings.length];
+        int[] buildingNames = new int[MainActivity.buildings.size()];
         for (int i = 0; i < buildingNames.length; i++) {
-            buildingNames[i] = Building.buildings[i].getNameId();
+            buildingNames[i] = MainActivity.buildings.get(i).getNameId();
         }
 
-        int[] buildingImages = new int[Building.buildings.length];
+        int[] buildingImages = new int[MainActivity.buildings.size()];
         for (int i = 0; i < buildingImages.length; i++) {
-            buildingImages[i] = Building.buildings[i].getImageId();
+            buildingImages[i] = MainActivity.buildings.get(i).getImageId();
         }
 
         CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(buildingNames, buildingImages);

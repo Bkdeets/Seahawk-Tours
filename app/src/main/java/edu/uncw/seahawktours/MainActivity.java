@@ -9,17 +9,41 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
+import io.objectbox.query.Query;
+
 public class MainActivity extends AppCompatActivity implements BuildingListFragment.Listener {
+
+    private Box<Building> buildingBox;
+    private Query<Building> buildingsQuery;
+    public static List<Building> buildings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //DB Stuff
+        BoxStore boxStore = ((App) getApplication()).getBoxStore();
+        buildingBox = boxStore.boxFor(Building.class);
+
+        // query all notes, sorted a-z by their text (https://docs.objectbox.io/queries)
+        buildingsQuery = buildingBox.query().build();
+        buildings = buildingsQuery.find();
+
         setContentView(R.layout.activity_main);
 
         //Set toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -56,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements BuildingListFragm
             ft.commit();
         } else {
             Intent intent = new Intent(this, DetailActivity.class);
-            intent.putExtra(DetailActivity.EXTRA_BUILDINGID, (int)id);
+            intent.putExtra(DetailActivity.EXTRA_BUILDINGID, id);
             startActivity(intent);
         }
     }
