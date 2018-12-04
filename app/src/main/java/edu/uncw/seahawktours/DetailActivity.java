@@ -37,7 +37,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         Intent intent = getIntent();
 
-        long buildingId = intent.getLongExtra(EXTRA_BUILDINGID,0);
+        long buildingId = intent.getIntExtra(EXTRA_BUILDINGID,0);
         contextBuilding = MainActivity.buildings.get((int)buildingId);
 
         //Fragment
