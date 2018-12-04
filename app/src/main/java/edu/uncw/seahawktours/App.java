@@ -4,6 +4,7 @@ import android.app.Application;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 
@@ -27,12 +28,12 @@ public class App extends Application {
             List<Building> initialBuildings = new ArrayList<>();
 
             initialBuildings.add(new Building(
-                            "DePaolo Hall",
-                            R.string.depaolo_name,
-                            R.string.depaolo_info,
-                            R.drawable.depaolo,
-                            R.string.depaolo_caption,
-                            R.string.depaolo_link
+                    "DePaolo Hall",
+                    R.string.depaolo_name,
+                    R.string.depaolo_info,
+                    R.drawable.depaolo,
+                    R.string.depaolo_caption,
+                    R.string.depaolo_link
             ));
 
             initialBuildings.add(new Building(

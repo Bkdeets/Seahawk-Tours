@@ -4,19 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
 
-public class MainActivity extends AppCompatActivity implements BuildingListFragment.Listener {
+public class MainActivity extends AppCompatActivity implements BuildingListFragment.Listener, SearchView.OnQueryTextListener, View.OnFocusChangeListener {
 
     private Box<Building> buildingBox;
     private Query<Building> buildingsQuery;
@@ -35,15 +35,17 @@ public class MainActivity extends AppCompatActivity implements BuildingListFragm
         buildingsQuery = buildingBox.query().build();
         buildings = buildingsQuery.find();
 
+        //Search View
+        //SearchView searchView = (SearchView) findViewById(R.id.search);
+        //searchView.setOnQueryTextFocusChangeListener(this);
+
+
         setContentView(R.layout.activity_main);
 
         //Set toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,5 +85,20 @@ public class MainActivity extends AppCompatActivity implements BuildingListFragm
             intent.putExtra(DetailActivity.EXTRA_BUILDINGID, id);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+
     }
 }
