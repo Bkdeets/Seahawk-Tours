@@ -82,6 +82,19 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        //Creates new intent when clicked
+        adapter.setOnItemClickListener(new CaptionedImagesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //Uses methods from CaptionedImagesAdapter to retrieve cards position
+                searchListItems.get(position);
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_BUILDINGID, position);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

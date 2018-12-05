@@ -1,6 +1,7 @@
 package edu.uncw.seahawktours;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +19,43 @@ class CaptionedImagesAdapter extends
 
     private List<SearchListItem> searchListItems;
     private List<SearchListItem> searchListItemsFull;
+    private OnItemClickListener mListener;
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    //Get position
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
 
-        ViewHolder(View itemView) {
+        ViewHolder(final CardView itemView, final OnItemClickListener listener) {
             super(itemView);
             imageView = itemView.findViewById(R.id.info_image);
             textView = itemView.findViewById(R.id.info_text);
+
+
+            //Create listener for card
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 
+    //Initialize Search Items
     CaptionedImagesAdapter(List<SearchListItem> searchListItems){
         this.searchListItems = searchListItems;
         searchListItemsFull = new ArrayList<>(searchListItems);
@@ -40,15 +65,14 @@ class CaptionedImagesAdapter extends
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_captioned_image,
+        CardView v = (CardView) LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_captioned_image,
                 viewGroup, false);
-        return new ViewHolder(v);
+        return new ViewHolder(v, mListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SearchListItem currentItem = searchListItems.get(position);
-
         holder.imageView.setImageResource(currentItem.getImageResource());
         holder.textView.setText(currentItem.getText1());
     }
@@ -82,13 +106,18 @@ class CaptionedImagesAdapter extends
             return results;
         }
 
+        //Resets list when filtered
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             searchListItems.clear();
             searchListItems.addAll((List) results.values);
             notifyDataSetChanged();
         }
+
+
     };
+
+
 }
 
 
