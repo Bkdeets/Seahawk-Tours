@@ -2,17 +2,15 @@ package edu.uncw.seahawktours;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
+import android.view.inputmethod.EditorInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,21 +19,17 @@ import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
 
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class MainActivity extends AppCompatActivity {
 
     private Box<Building> buildingBox;
     private Query<Building> buildingsQuery;
     public static List<Building> buildings;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private CaptionedImagesAdapter adapter;
-    private List<String> names = new ArrayList<>();
-
+    private List<SearchListItem> searchListItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         //DB Stuff
         BoxStore boxStore = ((App) getApplication()).getBoxStore();
@@ -51,41 +45,68 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Create recycle view
-        int[] buildingNames = new int[MainActivity.buildings.size()];
-        for (int i = 0; i < buildingNames.length; i++) {
-            buildingNames[i] = MainActivity.buildings.get(i).getNameId();
-        }
-        int[] buildingImages = new int[MainActivity.buildings.size()];
-        for (int i = 0; i < buildingImages.length; i++) {
-            buildingImages[i] = MainActivity.buildings.get(i).getImageId();
-        }
-        recyclerView = findViewById(R.id.building_recycler);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+        fillSearchList();
+        setUpRecyclerView();
 
-        adapter = new CaptionedImagesAdapter(buildingNames, buildingImages, names);
+
+    }
+
+    //Creates a search list that can be filtered
+    private void fillSearchList() {
+        ArrayList<Integer> buildingNames = new ArrayList<>();
+        for (int i = 0; i < buildings.size(); i++) {
+            buildingNames.add(MainActivity.buildings.get(i).getNameId());
+        }
+        ArrayList<Integer> buildingImages = new ArrayList<>();
+        for (int i = 0; i < buildings.size(); i++) {
+            buildingImages.add(MainActivity.buildings.get(i).getImageId());
+        }
+
+        //Use SearchListItem to create custom Array List
+        //Wanted single input for adapter
+        searchListItems = new ArrayList<>();
+        for (int i = 0; i < buildings.size(); i++) {
+            //Insert each building and picture name into searchList item
+            searchListItems.add(new SearchListItem(MainActivity.buildings.get(i).getImageId(), MainActivity.buildings.get(i).getName()));
+        }
+
+
+    }
+    private void setUpRecyclerView() {
+
+        //Set up recycle view
+        RecyclerView recyclerView = findViewById(R.id.building_recycler);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        adapter = new CaptionedImagesAdapter(searchListItems);
+
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        adapter.setListener(new CaptionedImagesAdapter.Listener() {
-            public void onClick(int position) {
-                /*Intent intent = new Intent(this, DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_BUILDINGID, position);
-                startActivity(intent);*/
-            }
-        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_main_noshare, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main_noshare, menu);
 
+        //Create search view
         MenuItem menuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setOnQueryTextListener(this);
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-        return super.onCreateOptionsMenu(menu);
+        //Input Listener changes the filtered adapter with input
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) { return false; }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
+        return true;
     }
 
     @Override
@@ -99,26 +120,5 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String s) {
-
-        String userInput = s.toLowerCase();
-        List<String> newList = new ArrayList<>();
-
-        for (String names : names) {
-            if (names.toLowerCase().contains(userInput)) {
-                newList.add(names);
-            }
-        }
-        adapter.updateList(newList);
-        return true;
     }
 }

@@ -1,86 +1,96 @@
 package edu.uncw.seahawktours;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-
+import android.widget.Filter;
 import java.util.ArrayList;
 import java.util.List;
 
 
 class CaptionedImagesAdapter extends
-        RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder>{
+        RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder> implements Filterable {
 
-    //Use names and filter
-    private List<String> names;
+    private List<SearchListItem> searchListItems;
+    private List<SearchListItem> searchListItemsFull;
 
-    private int[] captions;
-    private int[] imageIds;
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-    private Listener listener;
-    interface Listener {
-        void onClick(int position);
-    }
+        ImageView imageView;
+        TextView textView;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView cardView;
-        public ViewHolder(CardView v) {
-            super(v);
-            cardView = v;
+        ViewHolder(View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.info_image);
+            textView = itemView.findViewById(R.id.info_text);
         }
     }
-    public CaptionedImagesAdapter(int[] captions, int[] imageIds, List<String> names){
-        this.captions = captions;
-        this.imageIds = imageIds;
-        this.names = names;
+
+    CaptionedImagesAdapter(List<SearchListItem> searchListItems){
+        this.searchListItems = searchListItems;
+        searchListItemsFull = new ArrayList<>(searchListItems);
     }
 
-    public void updateList(List<String> newList) {
-        names = new ArrayList<>();
-        names.addAll(newList);
-        notifyDataSetChanged();
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_captioned_image,
+                viewGroup, false);
+        return new ViewHolder(v);
     }
 
     @Override
-    public int getItemCount(){
-        return captions.length;
-    }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        SearchListItem currentItem = searchListItems.get(position);
 
-    public void setListener(Listener listener){
-        this.listener = listener;
+        holder.imageView.setImageResource(currentItem.getImageResource());
+        holder.textView.setText(currentItem.getText1());
     }
-
 
     @Override
-    public CaptionedImagesAdapter.ViewHolder onCreateViewHolder(
-            ViewGroup parent, int viewType){
-        CardView cv = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_captioned_image, parent, false);
-        return new ViewHolder(cv);
-    }
+    public int getItemCount() { return searchListItems.size(); }
+
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position){
-        final CardView cardView = holder.cardView;
-        ImageView imageView = (ImageView)cardView.findViewById(R.id.info_image);
-        Drawable drawable =
-                ContextCompat.getDrawable(cardView.getContext(), imageIds[position]);
-        imageView.setImageDrawable(drawable);
-        //imageView.setContentDescription(captions[position]);
-        TextView textView = (TextView)cardView.findViewById(R.id.info_text);
-        textView.setText(captions[position]);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) {
-                    listener.onClick(position);
+    public Filter getFilter() { return listFilter; }
+
+    //Filter list
+    private Filter listFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<SearchListItem> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(searchListItemsFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (SearchListItem item : searchListItemsFull) {
+                    if (item.getText1().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
                 }
             }
-        });
-    }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            searchListItems.clear();
+            searchListItems.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }
+
+
+
+
