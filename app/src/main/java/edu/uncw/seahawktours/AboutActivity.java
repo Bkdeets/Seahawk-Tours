@@ -35,7 +35,7 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_main_noshare, menu);
+        getMenuInflater().inflate(R.menu.menu_main_nosearch, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

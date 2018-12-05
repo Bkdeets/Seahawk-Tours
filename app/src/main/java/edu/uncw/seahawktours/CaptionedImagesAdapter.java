@@ -1,6 +1,5 @@
 package edu.uncw.seahawktours;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.CardView;
 import android.view.View;
@@ -11,9 +10,16 @@ import android.widget.TextView;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 class CaptionedImagesAdapter extends
         RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder>{
+
+    //Use names and filter
+    private List<String> names;
+
     private int[] captions;
     private int[] imageIds;
 
@@ -29,9 +35,16 @@ class CaptionedImagesAdapter extends
             cardView = v;
         }
     }
-    public CaptionedImagesAdapter(int[] captions, int[] imageIds){
+    public CaptionedImagesAdapter(int[] captions, int[] imageIds, List<String> names){
         this.captions = captions;
         this.imageIds = imageIds;
+        this.names = names;
+    }
+
+    public void updateList(List<String> newList) {
+        names = new ArrayList<>();
+        names.addAll(newList);
+        notifyDataSetChanged();
     }
 
     @Override
