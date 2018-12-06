@@ -2,11 +2,13 @@ package edu.uncw.seahawktours;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,10 +21,10 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-import com.google.android.gms.location.LocationServices;
+/*import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Task;*/
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public static List<Building> buildings;
     private CaptionedImagesAdapter adapter;
     private List<SearchListItem> searchListItems;
-    private FusedLocationProviderClient mFusedLocationClient;
-    private static final int PERMISSIONS_ACCESS_FINE_LOCATION = 0;
+    /*private FusedLocationProviderClient mFusedLocationClient;
+    private static final int PERMISSIONS_ACCESS_FINE_LOCATION = 0;*/
 
 
     @Override
@@ -68,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         setUpRecyclerView();
 
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        getDeviceLocation();
+        /*mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        getDeviceLocation();*/
 
 
     }
@@ -84,13 +86,18 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < buildings.size(); i++) {
             buildingImages.add(MainActivity.buildings.get(i).getImageId());
         }
+        ArrayList<Long> buildingId = new ArrayList<>();
+        for (int i = 0; i < buildings.size(); i++) {
+            buildingId.add(MainActivity.buildings.get(i).getId());
+        }
 
         //Use SearchListItem to create custom Array List
         //Wanted single input for adapter
         searchListItems = new ArrayList<>();
         for (int i = 0; i < buildings.size(); i++) {
             //Insert each building and picture name into searchList item
-            searchListItems.add(new SearchListItem(MainActivity.buildings.get(i).getImageId(), MainActivity.buildings.get(i).getName()));
+            searchListItems.add(new SearchListItem(MainActivity.buildings.get(i).getImageId(), MainActivity.buildings.get(i).getName(),
+                    MainActivity.buildings.get(i).getId()));
         }
 
 
@@ -109,12 +116,22 @@ public class MainActivity extends AppCompatActivity {
         //Creates new intent when clicked
         adapter.setOnItemClickListener(new CaptionedImagesAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-                //Uses methods from CaptionedImagesAdapter to retrieve cards position
-                searchListItems.get(position);
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_BUILDINGID, position);
-                startActivity(intent);
+            public void onItemClick(long id) {
+                View fragmentContainer = findViewById(R.id.detail_container);
+                if (fragmentContainer != null) {
+                    //Update and commit fragment changes
+                    DetailActivityFragment details = new DetailActivityFragment();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    details.setBuilding(id);
+                    ft.replace(R.id.detail_container, details);
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                } else {
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra(DetailActivity.EXTRA_BUILDINGID, (int)id);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -160,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void getDeviceLocation(){
+   /* public void getDeviceLocation(){
 
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
@@ -186,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         }
-    }
+    }*/
 
 
     public Building findNearestBuilding(Location location){

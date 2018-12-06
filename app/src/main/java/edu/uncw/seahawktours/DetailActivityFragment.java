@@ -48,7 +48,7 @@ public class DetailActivityFragment extends Fragment {
             TextView description = (TextView) view.findViewById(R.id.building_info);
             ImageView image = (ImageView) view.findViewById(R.id.building_image);
 
-            Building building = MainActivity.buildings.get((int)buildingId);
+            Building building = MainActivity.buildings.get((int)buildingId-1);
             title.setText(building.getNameId());
             caption.setText(building.getCaptionId());
             description.setText(building.getInfoId());

@@ -24,7 +24,7 @@ class CaptionedImagesAdapter extends
 
     //Get position
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(long id);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -32,6 +32,7 @@ class CaptionedImagesAdapter extends
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        long id;
         ImageView imageView;
         TextView textView;
 
@@ -46,10 +47,7 @@ class CaptionedImagesAdapter extends
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
-                        long id = getAdapterPosition();
-                        if (id != RecyclerView.NO_POSITION) {
-                            listener.onItemClick((int)id);
-                        }
+                            listener.onItemClick(id);
                     }
                 }
             });
@@ -73,9 +71,9 @@ class CaptionedImagesAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        SearchListItem currentItem = searchListItems.get(position);
-        holder.imageView.setImageResource(currentItem.getImageResource());
-        holder.textView.setText(currentItem.getText1());
+        holder.imageView.setImageResource(searchListItems.get(position).getImageResource());
+        holder.textView.setText(searchListItems.get(position).getText1());
+        holder.id = searchListItems.get(position).getId();
     }
 
     @Override
