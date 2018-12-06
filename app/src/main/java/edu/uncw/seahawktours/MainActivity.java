@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Math;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
@@ -35,7 +36,7 @@ import io.objectbox.query.Query;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Location currentLocation;
+    public static Location currentLocation;
     private Box<Building> buildingBox;
     private Query<Building> buildingsQuery;
     public static List<Building> buildings;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getDeviceLocation();
+
 
     }
 
@@ -177,14 +179,37 @@ public class MainActivity extends AppCompatActivity {
                         public void onSuccess(Location location) {
                             // Got last known location. In some rare situations this can be null.
                             if (location != null) {
-                                setCurrentLocation(location);
+                                Building nearestBuilding = findNearestBuilding(location);
+                                Button nearButton = (Button) findViewById(R.id.nearest);
+                                nearButton.setText("Nearest Building: " + nearestBuilding.getName());
                             }
                         }
                     });
         }
     }
 
-    public void setCurrentLocation(Location location) {
-        this.currentLocation = location;
+
+    public Building findNearestBuilding(Location location){
+        Building nearest = new Building("Fake",0,0,0,0,0,0,0);
+        Double min = 999999999999.0;
+        for(Building b: buildings){
+            Double dist = calcDistance(b,location);
+            if(dist<min){
+                min = dist;
+                nearest = b;
+            }
+        }
+        return nearest;
+    }
+
+    public double calcDistance(Building building, Location location){
+        double currentLat = location.getLatitude();
+        double currentLon = location.getLongitude();
+        double buildingLat = building.getLatitude();
+        double buildingLon = building.getLongitude();
+
+        return Math.sqrt(
+                ((currentLat - buildingLat)*(currentLat - buildingLat))
+                -((currentLon-buildingLon)*(currentLon-buildingLon)));
     }
 }

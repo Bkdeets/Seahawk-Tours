@@ -33,7 +33,10 @@ public class App extends Application {
                     R.string.depaolo_info,
                     R.drawable.depaolo,
                     R.string.depaolo_caption,
-                    R.string.depaolo_link
+                    R.string.depaolo_link,
+                    34.2267,
+                    -77.8756
+
             ));
 
             initialBuildings.add(new Building(
@@ -42,7 +45,9 @@ public class App extends Application {
                     R.string.dobo_info,
                     R.drawable.dobo,
                     R.string.dobo_caption,
-                    R.string.dobo_link
+                    R.string.dobo_link,
+                    34.2256,
+                    -77.8682
             ));
             initialBuildings.add(new Building(
                     "James Hall",
@@ -50,7 +55,9 @@ public class App extends Application {
                     R.string.james_info,
                     R.drawable.james,
                     R.string.james_caption,
-                    R.string.james_link
+                    R.string.james_link,
+                    34.2259,
+                    -77.8775
             ));
             initialBuildings.add(new Building(
                     "Alderman Hall",
@@ -58,7 +65,9 @@ public class App extends Application {
                     R.string.alderman_info,
                     R.drawable.alderman,
                     R.string.alderman_caption,
-                    R.string.alderman_link
+                    R.string.alderman_link,
+                    34.2269,
+                    -77.8770
             ));
             initialBuildings.add(new Building(
                     "Computer Information Systems Building",
@@ -66,7 +75,9 @@ public class App extends Application {
                     R.string.cis_info,
                     R.drawable.cis,
                     R.string.cis_caption,
-                    R.string.cis_link
+                    R.string.cis_link,
+                    34.2262,
+                    -77.8718
             ));
 
             // ObjectBox is smart enough to handle CRUD on Collections of entities

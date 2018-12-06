@@ -20,13 +20,22 @@ public class Building {
     private double latitude;
     private double longitude;
 
-    public Building(String name, int nameId, int infoId, int imageId, int captionId, int link) {
+    public Building(String name,
+                    int nameId,
+                    int infoId,
+                    int imageId,
+                    int captionId,
+                    int link,
+                    double latitude,
+                    double longitude) {
         this.name = name;
         this.nameId = nameId;
         this.infoId = infoId;
         this.imageId = imageId;
         this.captionId = captionId;
         this.link = link;
+        this.latitude = latitude;
+        this.longitude = longitude;
 
     }
 
