@@ -21,10 +21,10 @@ public class App extends Application {
         boxStore = MyObjectBox.builder().androidContext(App.this).build();
 
         // Get the wrapper (Box) for the Book table that lets us store Book objects
-        Box<Building> buildingBox = boxStore.boxFor(Building.class);
+        Box<Building> bBox = boxStore.boxFor(Building.class);
 
         // Initialize with some data
-        if (buildingBox.count() == 0) {
+        if (bBox.count() == 0) {
             List<Building> initialBuildings = new ArrayList<>();
 
             initialBuildings.add(new Building(
@@ -80,8 +80,13 @@ public class App extends Application {
                     -77.8718
             ));
 
+            int c = 0;
+            for(Building b: initialBuildings){
+                b.id = c;
+                c += 1;
+            }
             // ObjectBox is smart enough to handle CRUD on Collections of entities
-            buildingBox.put(initialBuildings);
+            bBox.put(initialBuildings);
         }
     }
 

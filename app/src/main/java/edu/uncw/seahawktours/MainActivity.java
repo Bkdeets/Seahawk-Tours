@@ -26,8 +26,6 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import com.google.android.gms.location.LocationServices;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.Math;
@@ -74,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getDeviceLocation();
-
 
     }
 
@@ -179,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void getDeviceLocation(){
+   public void getDeviceLocation(){
 
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
@@ -229,6 +226,6 @@ public class MainActivity extends AppCompatActivity {
 
         return Math.sqrt(
                 ((currentLat - buildingLat)*(currentLat - buildingLat))
-                -((currentLon-buildingLon)*(currentLon-buildingLon)));
+                +((currentLon-buildingLon)*(currentLon-buildingLon)));
     }
 }
