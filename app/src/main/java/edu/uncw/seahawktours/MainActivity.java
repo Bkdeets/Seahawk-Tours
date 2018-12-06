@@ -21,10 +21,12 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-/*import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;*/
+import com.google.android.gms.tasks.Task;
+
+import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     public static List<Building> buildings;
     private CaptionedImagesAdapter adapter;
     private List<SearchListItem> searchListItems;
-    /*private FusedLocationProviderClient mFusedLocationClient;
-    private static final int PERMISSIONS_ACCESS_FINE_LOCATION = 0;*/
+    private FusedLocationProviderClient mFusedLocationClient;
+    private static final int PERMISSIONS_ACCESS_FINE_LOCATION = 0;
 
 
     @Override
@@ -70,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         setUpRecyclerView();
 
 
-        /*mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        getDeviceLocation();*/
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        getDeviceLocation();
 
 
     }
@@ -177,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-   /* public void getDeviceLocation(){
+    public void getDeviceLocation(){
 
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
@@ -203,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         }
-    }*/
+    }
 
 
     public Building findNearestBuilding(Location location){
