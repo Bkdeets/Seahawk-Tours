@@ -210,6 +210,6 @@ public class MainActivity extends AppCompatActivity {
 
         return Math.sqrt(
                 ((currentLat - buildingLat)*(currentLat - buildingLat))
-                -((currentLon-buildingLon)*(currentLon-buildingLon)));
+                +((currentLon-buildingLon)*(currentLon-buildingLon)));
     }
 }
