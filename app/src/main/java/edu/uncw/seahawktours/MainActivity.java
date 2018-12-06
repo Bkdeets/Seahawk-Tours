@@ -7,10 +7,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
+import android.location.Location;
+import android.support.v4.content.ContextCompat;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
+
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +31,19 @@ import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
+    private Location currentLocation;
     private Box<Building> buildingBox;
     private Query<Building> buildingsQuery;
     public static List<Building> buildings;
     private CaptionedImagesAdapter adapter;
     private List<SearchListItem> searchListItems;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private static final int PERMISSIONS_ACCESS_FINE_LOCATION = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
         fillSearchList();
         setUpRecyclerView();
 
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        getDeviceLocation();
 
     }
 
@@ -133,5 +154,37 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+
+    public void getDeviceLocation(){
+
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSIONS_ACCESS_FINE_LOCATION);
+
+        } else {
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                setCurrentLocation(location);
+                            }
+                        }
+                    });
+        }
+    }
+
+    public void setCurrentLocation(Location location) {
+        this.currentLocation = location;
     }
 }
