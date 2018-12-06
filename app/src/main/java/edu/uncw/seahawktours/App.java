@@ -23,6 +23,8 @@ public class App extends Application {
         // Get the wrapper (Box) for the Book table that lets us store Book objects
         Box<Building> bBox = boxStore.boxFor(Building.class);
 
+        bBox.removeAll();
+
         // Initialize with some data
         if (bBox.count() == 0) {
             List<Building> initialBuildings = new ArrayList<>();
@@ -80,11 +82,11 @@ public class App extends Application {
                     -77.8718
             ));
 
-            int c = 0;
+            /*int c = 0;
             for(Building b: initialBuildings){
                 b.id = c;
                 c += 1;
-            }
+            }*/
             // ObjectBox is smart enough to handle CRUD on Collections of entities
             bBox.put(initialBuildings);
         }

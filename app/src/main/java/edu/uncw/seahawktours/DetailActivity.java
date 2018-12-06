@@ -3,6 +3,7 @@ package edu.uncw.seahawktours;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import java.lang.Math;
 import java.util.List;
+import android.util.Log;
 
 
 public class DetailActivity extends AppCompatActivity {
@@ -38,7 +40,17 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         long buildingId = intent.getIntExtra(EXTRA_BUILDINGID,0); //fixed
-        contextBuilding = MainActivity.buildings.get((int)buildingId-1);
+        for(Building b: MainActivity.buildings){
+            if((int)buildingId== b.getId()){
+                contextBuilding = b;
+                Log.d("Building Id",String.valueOf(buildingId-1));
+                Log.d("b Id",String.valueOf(b.id));
+                break;
+
+            } else {
+                contextBuilding = new Building("Fake",0,0,0,0,0,0,0);
+            }
+        }
 
         //Fragment
         DetailActivityFragment frag = (DetailActivityFragment)
