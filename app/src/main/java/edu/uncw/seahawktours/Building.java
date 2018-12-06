@@ -7,8 +7,6 @@ import java.util.List;
 @Entity
 public class Building {
 
-
-
     @Id
     public long id;
 
@@ -18,6 +16,9 @@ public class Building {
     private int imageId;
     private int captionId;
     private int link;
+
+    private double latitude;
+    private double longitude;
 
     public Building(String name, int nameId, int infoId, int imageId, int captionId, int link) {
         this.name = name;
@@ -76,6 +77,14 @@ public class Building {
     public void setName(String name) {
         this.name = name;
     }
+
+    public double getLatitude() {return latitude; }
+
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+
+    public double getLongitude() { return longitude; }
+
+    public void setLongitude(double longitude) { this.longitude = longitude; }
 
     @Override
     public String toString(){

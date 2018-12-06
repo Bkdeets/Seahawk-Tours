@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Filter;
 import java.util.ArrayList;
 import java.util.List;
+import android.util.Log;
 
 
 class CaptionedImagesAdapter extends
@@ -45,9 +46,9 @@ class CaptionedImagesAdapter extends
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemClick(position);
+                        long id = getAdapterPosition();
+                        if (id != RecyclerView.NO_POSITION) {
+                            listener.onItemClick((int)id);
                         }
                     }
                 }
