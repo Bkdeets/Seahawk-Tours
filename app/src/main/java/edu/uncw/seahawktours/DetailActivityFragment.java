@@ -2,6 +2,7 @@ package edu.uncw.seahawktours;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,19 @@ public class DetailActivityFragment extends Fragment {
             TextView description = (TextView) view.findViewById(R.id.building_info);
             ImageView image = (ImageView) view.findViewById(R.id.building_image);
 
-            Building building = MainActivity.buildings.get((int)buildingId-1);
+            Building building = new Building("fake",0,0,0,0,0,0,0);
+            for(Building b: MainActivity.buildings){
+                if((int)buildingId== b.getId()){
+                    building = b;
+                    Log.d("Building Id",String.valueOf(buildingId-1));
+                    Log.d("b Id",String.valueOf(b.id));
+                    break;
+
+                } else {
+                    building = new Building("Fake",0,0,0,0,0,0,0);
+                }
+            }
+
             title.setText(building.getNameId());
             caption.setText(building.getCaptionId());
             description.setText(building.getInfoId());
