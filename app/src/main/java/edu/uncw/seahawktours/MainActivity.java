@@ -1,7 +1,10 @@
 package edu.uncw.seahawktours;
 
 import android.content.Intent;
+import android.location.LocationListener;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +23,10 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +44,8 @@ import io.objectbox.query.Query;
 
 public class MainActivity extends AppCompatActivity {
 
+    GoogleApiClient.Builder googleApiClient = null;
+
     public static Location currentLocation;
     private Box<Building> buildingBox;
     private Query<Building> buildingsQuery;
@@ -48,9 +56,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSIONS_ACCESS_FINE_LOCATION = 0;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+       super.onCreate(savedInstanceState);
 
         //DB Stuff
         BoxStore boxStore = ((App) getApplication()).getBoxStore();
@@ -69,10 +78,20 @@ public class MainActivity extends AppCompatActivity {
         fillSearchList();
         setUpRecyclerView();
 
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getDeviceLocation();
 
+    }
+
+    //Check if device needs to download google play services
+    @Override
+    protected  void onResume() {
+        super.onResume();
+        int response = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+        if (response != ConnectionResult.SUCCESS) {
+            GoogleApiAvailability.getInstance().getErrorDialog(this, response, 1).show();
+        } else {
+        }
     }
 
     //Creates a search list that can be filtered
@@ -89,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < buildings.size(); i++) {
             buildingId.add(MainActivity.buildings.get(i).getId());
         }
-
         //Use SearchListItem to create custom Array List
         //Wanted single input for adapter
         searchListItems = new ArrayList<>();
@@ -102,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void setUpRecyclerView() {
-
         //Set up recycle view
         RecyclerView recyclerView = findViewById(R.id.building_recycler);
         recyclerView.setHasFixedSize(true);
@@ -182,8 +199,6 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-
-
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         PERMISSIONS_ACCESS_FINE_LOCATION);
@@ -196,13 +211,34 @@ public class MainActivity extends AppCompatActivity {
                             // Got last known location. In some rare situations this can be null.
                             if (location != null) {
                                 Building nearestBuilding = findNearestBuilding(location);
+                                final long id = nearestBuilding.getId();
                                 Button nearButton = (Button) findViewById(R.id.nearest);
                                 nearButton.setText("Nearest Building: " + nearestBuilding.getName());
+                                nearButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        View fragmentContainer = findViewById(R.id.detail_container);
+                                        if (fragmentContainer != null) {
+                                            //Update and commit fragment changes
+                                            DetailActivityFragment details = new DetailActivityFragment();
+                                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                            details.setBuilding(id);
+                                            ft.replace(R.id.detail_container, details);
+                                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                                            ft.addToBackStack(null);
+                                            ft.commit();
+                                        } else {
+                                            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                                            intent.putExtra(DetailActivity.EXTRA_BUILDINGID, (int)id);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                });
                             }
                         }
                     });
         }
-    }
+   }
 
 
     public Building findNearestBuilding(Location location){
