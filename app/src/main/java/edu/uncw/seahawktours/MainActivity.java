@@ -191,10 +191,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
    public void getDeviceLocation(){
-
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -239,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
                     });
         }
    }
-
 
     public Building findNearestBuilding(Location location){
         Building nearest = new Building("Fake",0,0,0,0,0,0,0);
